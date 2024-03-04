@@ -102,6 +102,10 @@ input PlanetInput{
 input PlanetInputDelete{
     id: ID!
 }
+input WebHook{
+    webHook: String!
+    url: String!
+}
 
 type Mutation {
     createUser(user: InputUser): User
@@ -111,5 +115,6 @@ type Mutation {
     createMovie(movie: MovieInput): Movie
     createPlanet(planet: PlanetInput): Planet
     deletePlanet(id: PlanetInputDelete): Planet
+    addUserWebHook(webHook: WebHook): String
 }
 `

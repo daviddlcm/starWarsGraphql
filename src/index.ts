@@ -17,11 +17,12 @@ const PORT = parseInt(process.env.PORT || '80');
         context: async ({req}) => {
             try{
             const token = req.headers.authorization || '';
-            
+           
             const user = await getToken(token);
+           
             return user
             }catch(e: any){
-                console.log(e.message)
+        
                 return {}
             }
         },
