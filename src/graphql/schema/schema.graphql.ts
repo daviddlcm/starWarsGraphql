@@ -26,6 +26,24 @@ type LighSaber{
     owner: String
 }
 
+type Movie {
+    id: ID
+    name: String
+    description: String
+    director: String
+    release_date: String
+    language: String
+}
+
+type Planet {
+    id: ID
+    name: String
+    description: String
+    galaxy: String
+}
+
+
+
 type Token {
     token: String
 }
@@ -33,6 +51,9 @@ type Query {
     users: [User]
     getAliensRace: [AlienRace]
     getLighSaber: [LighSaber]
+    getMovies: [Movie]
+    userGetById(id: InputUserGetById): User
+    getMoviesForName(name: MovieInputSearch): Movie
 }
 
 input InputUser {
@@ -62,12 +83,33 @@ input InputLighSaber{
     color: String!
     owner: String!
 }
+input MovieInput{
+    name: String!
+    description: String!
+    director: String!
+    release_date: String!
+    language: String!
+}
+input MovieInputSearch{
+    name: String!
+}
+
+input PlanetInput{
+    name: String!
+    description: String!
+    galaxy: String!
+}
+input PlanetInputDelete{
+    id: ID!
+}
 
 type Mutation {
     createUser(user: InputUser): User
     login(user: InputUserLogin): Token
-    userGetById(id: InputUserGetById): User
     createAlienRace(alien: InputAlienRace): AlienRace
     createLighSaber(LighSaber: InputLighSaber): LighSaber
+    createMovie(movie: MovieInput): Movie
+    createPlanet(planet: PlanetInput): Planet
+    deletePlanet(id: PlanetInputDelete): Planet
 }
 `

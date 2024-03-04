@@ -1,6 +1,8 @@
 import { UserService } from "../../services/User.services";
 import { AlienRaceService } from "../../services/AlienRace.services";
 import { LighSaberService } from "../../services/LighSaber.services";
+import  { MovieService }  from "../../services/Movie.services";
+import { PlanetService } from "../../services/Planet.services";
 export const resolvers = {
     Query: {
       users: () => {
@@ -11,6 +13,19 @@ export const resolvers = {
       },
       getLighSaber: () => {
           return LighSaberService.getAllLighSaber();
+      },
+      getMovies: () => {
+          return MovieService.getAllMovies();
+      },
+      userGetById: async(_:void,{id}:any,contextValue:any)=>{
+        if(contextValue.name){
+          return await UserService.getById(id.id);
+        }else{
+          throw new Error("no autorizado")
+        }
+      },
+      getMoviesForName:async(_:void, {name}:any)=>{
+          return await MovieService.getMoviesForName(name.name);
       }
     },
     Mutation: {
@@ -19,14 +34,6 @@ export const resolvers = {
       },
       login: async(_:void,{user}:any) =>{
         return await UserService.login(user);
-      },
-      userGetById: async(_:void,{id}:any,contextValue:any)=>{
-        console.log(contextValue)
-        if(contextValue.name){
-          return await UserService.getById(id.id);
-        }else{
-          throw new Error("no autorizado")
-        }
       },
       createAlienRace: async(_:void,{alien}:any,contextValue:any)=>{
         if(contextValue.name){
@@ -45,6 +52,27 @@ export const resolvers = {
       createLighSaber: async(_:void,{LighSaber}:any,contextValue:any)=>{
         if(contextValue.name){
           return await LighSaberService.createLighSaber(LighSaber);
+        }else{
+          throw new Error("no autorizado")
+        }
+      },
+      createMovie:async(_:void, {movie}:any,contextValue:any)=>{
+        if(contextValue.name){
+          return await MovieService.createMovie(movie);
+        }else{
+          throw new Error("no autorizado")
+        }
+      },
+      createPlanet:async(_:void, {planet}:any,contextValue:any)=>{
+        if(contextValue.name){
+          return await PlanetService.createPlanet(planet);
+        }else{
+          throw new Error("no autorizado")
+        }
+      },
+      deletePlanet:async(_:void, {id}:any,contextValue:any)=>{
+        if(contextValue.name){
+          return await PlanetService.deletePlanet(id.id);
         }else{
           throw new Error("no autorizado")
         }
