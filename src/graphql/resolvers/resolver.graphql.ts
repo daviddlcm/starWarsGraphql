@@ -8,8 +8,8 @@ export const resolvers = {
       users: () => {
         return UserService.getUsers();
       },
-      getAliensRace: () => {
-          return AlienRaceService.getAllAliensRace();
+      getAliensRace: (_:void,{pagination}:any) => {
+          return AlienRaceService.getAllAliensRace(pagination);
       },
       getLighSaber: () => {
           return LighSaberService.getAllLighSaber();
@@ -26,6 +26,15 @@ export const resolvers = {
       },
       getMoviesForName:async(_:void, {name}:any)=>{
           return await MovieService.getMoviesForName(name.name);
+      },
+      //paginacion
+      getPlanetForGalaxy:async(_:void, {galaxy}:any)=>{
+
+          return await PlanetService.getPlanetForGalaxy(galaxy);
+      },
+      //paginacion
+      getAliensForPlanet:async(_:void, {planet}:any)=>{
+          return await AlienRaceService.getAliensForPlanet(planet.planet);
       }
     },
     Mutation: {

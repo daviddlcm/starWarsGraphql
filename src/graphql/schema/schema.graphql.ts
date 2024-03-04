@@ -47,13 +47,24 @@ type Planet {
 type Token {
     token: String
 }
+
+input InputSearchAlienForPlanet{
+    planet: String!
+}
+
+input InputSearchAllAlien{
+    page: Int!
+    limit: Int!
+}
 type Query {
     users: [User]
-    getAliensRace: [AlienRace]
+    getAliensRace(pagination:InputSearchAllAlien):[AlienRace]
     getLighSaber: [LighSaber]
     getMovies: [Movie]
     userGetById(id: InputUserGetById): User
     getMoviesForName(name: MovieInputSearch): Movie
+    getPlanetForGalaxy(galaxy: PlanetInputSearchForGalaxy): [Planet]
+    getAliensForPlanet(planet: InputSearchAlienForPlanet): [AlienRace]
 }
 
 input InputUser {
@@ -102,6 +113,11 @@ input PlanetInput{
 input PlanetInputDelete{
     id: ID!
 }
+input PlanetInputSearchForGalaxy{
+    galaxy: String!
+    page: Int!
+    limit: Int!
+}
 
 type Mutation {
     createUser(user: InputUser): User
@@ -111,5 +127,6 @@ type Mutation {
     createMovie(movie: MovieInput): Movie
     createPlanet(planet: PlanetInput): Planet
     deletePlanet(id: PlanetInputDelete): Planet
+    
 }
 `
