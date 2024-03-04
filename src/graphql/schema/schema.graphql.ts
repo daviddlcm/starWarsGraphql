@@ -9,7 +9,9 @@ type User {
     deleted: Boolean
     deleted_at: String
 }
-
+type Token {
+    token: String
+}
 type Query {
     users: [User]
 }
@@ -20,7 +22,18 @@ input InputUser {
     password: String!
 }
 
+input InputUserLogin{
+    email: String!
+    password: String!
+}
+
+input InputUserGetById{
+    id: ID!
+}
+
 type Mutation {
     createUser(user: InputUser): User
+    login(user: InputUserLogin): Token
+    userGetById(id: InputUserGetById): User
 }
 `
